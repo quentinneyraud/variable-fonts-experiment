@@ -16,7 +16,13 @@ class Font {
 
     this.scrollToId = null
 
-    this.section = gebc(document, 'project-section')
+    this.letters = gebc(document, 'letter', true)
+    // this.letters[0].style.setProperty('--ratio', 0.1)
+    // this.letters[1].style.setProperty('--ratio', 0.5)
+    // this.letters[2].style.setProperty('--ratio', 1)
+    // this.letters[3].style.setProperty('--ratio', 0.5)
+    // this.letters[4].style.setProperty('--ratio', 0.1)
+
     this.onTick()
   }
 
@@ -45,10 +51,12 @@ class Font {
 
   onTick () {
     this.weight.v = lerp(this.weight.v, this.weight.t, 0.1)
-    this.section.style.setProperty('--wght', this.weight.v)
-
     this.width.v = lerp(this.width.v, this.width.t, 0.1)
-    this.section.style.setProperty('--wdth', this.width.v)
+
+    this.letters.forEach(letter => {
+      letter.style.setProperty('--wght', this.weight.v)
+      letter.style.setProperty('--wdth', this.width.v)
+    })
 
     window.requestAnimationFrame(this.onTick)
   }
